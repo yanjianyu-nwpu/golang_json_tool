@@ -6,11 +6,19 @@ import (
 )
 
 var (
-	spaceReg *regexp.Regexp
+	spaceReg       *regexp.Regexp
+	enReg          *regexp.Regexp
+	bigEnReg       *regexp.Regexp
+	smallEnReg     *regexp.Regexp
+	uselessCodeReg *regexp.Regexp
 )
 
 func init() {
 	spaceReg = regexp.MustCompile(`[\s,]`)
+	enReg = regexp.MustCompile(`[A-Za-z]+`)
+	bigEnReg = regexp.MustCompile(`[A-Z]+`)
+	smallEnReg = regexp.MustCompile(`[a-z]+`)
+	uselessCodeReg = regexp.MustCompile(`([{}]+)|\s`)
 }
 
 // GetStringSplitBySpace split space string

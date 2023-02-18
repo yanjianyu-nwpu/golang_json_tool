@@ -1,9 +1,11 @@
 package golang_json_tool
 
 type Object struct {
-	ObjectName string
+	ObjectName string // 结构体的名字
 
-	RawElemList []string
+	CodeObjectName string // 生成代码的名字
+
+	RawElemList []string // 输入的raw string
 
 	Elems []*DataElem
 

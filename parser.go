@@ -17,4 +17,6 @@ type DataElem struct {
 	JsonName  string
 	Omitempty bool
 	Tags      map[string]string
+	RawString string
+	RawTerms  []string
 }

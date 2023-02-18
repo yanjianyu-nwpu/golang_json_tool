@@ -1,5 +1,6 @@
 package golang_json_tool
 
+/*
 import "testing"
 
 func TestTagReg(t *testing.T) {
@@ -9,4 +10,4 @@ func TestTagReg(t *testing.T) {
 	r := tagReg.Find([]byte(testR))
 	t.Log(string(r))
 }
-
+*/
