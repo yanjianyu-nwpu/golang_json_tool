@@ -19,10 +19,10 @@ var (
 )
 
 const (
-	OKLine             = "%s.%s = %s.%s\n"
-	OKLineWithTypeCase = "%s.%s = %s(%s.%s)\n" //强制转化
-	NotOKLine          = "// %s.%s = %s.%s\n"
-	NotOKLineOnlyDst   = "// %s.%s = \n"
+	OKLine             = "\t%s.%s = %s.%s\n"
+	OKLineWithTypeCase = "\t%s.%s = %s(%s.%s)\n" //强制转化
+	NotOKLine          = "\t// %s.%s = %s.%s\n"
+	NotOKLineOnlyDst   = "\t// %s.%s = \n"
 
 	FuncLine = "func(%s *%s, %s *%s) { \n "
 )
