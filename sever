@@ -1,3 +1,5 @@
+
+/*
 package main
 
 import (
@@ -10,6 +12,8 @@ import (
 
 func main() {
 
+	testA := "type TestModelA struct{\n\tA int64 `json:\"a,omitempty\"`\n\tB float32 `json:\"b\"`\n\tC model.A\n }"
+	testB := "type TestModelB struct{\n\tA int `json:\"b\"`\n\tB float32\n\tC model.B\n\tD int64\n }"
 	router := gin.Default()
 
 	router.LoadHTMLGlob("1.html")
@@ -17,8 +21,11 @@ func main() {
 	router.GET("/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "1.html", gin.H{
 			"title": "Main website",
+			"src":   testA,
+			"dst":   testB,
 		})
 	})
+	nn := "{\n}"
 
 	router.POST("/index", func(c *gin.Context) {
 		src := c.PostForm("src") //可设置默认值
@@ -26,8 +33,14 @@ func main() {
 		fmt.Println(src)
 		n := golang_json_tool.GenCopyCode(src, dst)
 		fmt.Println(n)
-		c.String(http.StatusOK, src)
+		fmt.Println(nn)
+		c.HTML(http.StatusOK, "1.html", gin.H{
+			"gen_code": n,
+			"src":      src,
+			"dst":      dst,
+		})
 	})
 
 	router.Run(":9527")
 }
+*/
