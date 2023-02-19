@@ -2,13 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录</title>
+    <title>胶水代码生成</title>
 </head>
 <body>
+
+    <h1>golang 结构体胶水代码生成</h1>
+    <h2>左：赋值结构体 右：被赋值新结构体</h2>
     <form action="http://127.0.0.1:9527/index" method="post" enctype="application/x-www-form-urlencoded">
-        <textarea name="src" rows="10" cols="30">被拷贝老对象src</textarea>
-        <textarea name="dst" rows="10" cols="30">新对象</textarea>
-        <input type="submit" value="登录">
+        <textarea name="src" rows="10" cols="60">{{.src}}</textarea>
+        <textarea name="dst" rows="10" cols="60">{{.dst}}</textarea>
+        <input type="submit" value="生成">
     </form>
+<p>
+<pre>
+{{.gen_code}}
+</pre>
+</p>
 </body>
 </html>
