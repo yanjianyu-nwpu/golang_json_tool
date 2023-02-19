@@ -84,6 +84,7 @@ func strucName2CodeObjectName(s string) string {
 		codeNameFirstAlphaCode += "Obj"
 	}
 
+	codeNameFirstAlphaCode = strings.ReplaceAll(codeNameFirstAlphaCode, ".", "")
 	return codeNameFirstAlphaCode
 }
 
