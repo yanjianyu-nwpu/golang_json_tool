@@ -1,5 +1,5 @@
 # golang_json_tool
-一个用于生成golang结构体胶水代码，已经从json生成golang代码的库
+由于golang是强类型语言，本产品是用于生成golang结构体之间胶水代码，主要原理是靠字段名和json tag的匹配
 
 ## 文档： 【腾讯文档】Golang结构体胶水代码
 https://docs.qq.com/doc/DUU55emFPeFFKQVNI
