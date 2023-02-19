@@ -1,6 +1,6 @@
 # golang_json_tool
 由于golang是强类型语言，本产品是用于生成golang结构体之间胶水代码，主要原理是靠字段名和json tag的匹配
-
+相比于copier没有反射的性能损失，而且可以灵活的实现一些自己的特殊逻辑
 ## 文档： 【腾讯文档】Golang结构体胶水代码
 https://docs.qq.com/doc/DUU55emFPeFFKQVNI
 
