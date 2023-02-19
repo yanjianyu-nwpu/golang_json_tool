@@ -1,7 +1,5 @@
 package golang_json_tool
 
-import "testing"
-
 /*
 import "testing"
 
@@ -16,6 +14,7 @@ func TestGetStringSplitBySpace(t *testing.T) {
 }
 */
 
+/*
 func TestGetUselessReg(t *testing.T) {
 	t0 := []string{"{", "}", " \n", " ", "  "}
 	for _, str := range t0 {
@@ -24,3 +23,12 @@ func TestGetUselessReg(t *testing.T) {
 		}
 	}
 }
+
+func TestJsonTagReg(t *testing.T) {
+	s := "`json:\"name\"`"
+
+	r := jsonTagReg.Find([]byte(s))
+
+	t.Log(string(r))
+}
+*/

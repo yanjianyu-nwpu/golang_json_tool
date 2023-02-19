@@ -14,4 +14,16 @@ type Object struct {
 
 	JsonN2Elem    map[string]*DataElem
 	NormJson2Elem map[string]*DataElem
+
+	SelectedStructName map[string]bool
+}
+
+func NewObject() *Object {
+	return &Object{
+		SelectedStructName: make(map[string]bool),
+		JsonN2Elem:         make(map[string]*DataElem),
+		Name2Elem:          make(map[string]*DataElem),
+		NormName2Elem:      make(map[string]*DataElem),
+		NormJson2Elem:      make(map[string]*DataElem),
+	}
 }

@@ -20,4 +20,18 @@ func TestParseStruct(t *testing.T) {
 	//offset := int(s[0]) - int('A')
 	t.Log(s)
 }
+
+
+func TestParseStruct(t *testing.T) {
+	testR := "type TestA struct {\nTable int64 `json:\"table,omitempty\"`\n B float32\n}"
+	tt, err := ParserStruct(testR)
+	t.Logf(fmt.Sprint(err))
+	t.Logf(tt.CodeObjectName)
+	t.Logf(tt.ObjectName)
+
+	ii, _ := json.Marshal(&tt.Elems)
+	t.Logf(string(ii))
+	ii, _ = json.Marshal(&tt.RawElemList)
+	t.Logf(string(ii))
+}
 */

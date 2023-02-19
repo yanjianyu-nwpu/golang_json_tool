@@ -6,7 +6,7 @@ import (
 )
 
 func ParserStruct(rawString string) (*Object, error) {
-	obj := &Object{}
+	obj := NewObject()
 
 	// 先split
 	lines := strings.Split(rawString, "\n")
@@ -27,12 +27,41 @@ func ParserStruct(rawString string) (*Object, error) {
 
 	// 清洗数据 { } 这种
 	rawDataElemStrList := make([]string, 0)
-	for _, line := range lines {
-		if !uselessCodeReg.Match([]byte(line)) {
+	for ind, line := range lines {
+		if ind == 0 {
+			continue
+		}
+		//fmt.Println(line)
+		if line != "}" && line != "" {
 			rawDataElemStrList = append(rawDataElemStrList, line)
 		}
 	}
 	obj.RawElemList = rawDataElemStrList
+
+	// 解析每个数据成员
+	for _, dataRawSter := range rawDataElemStrList {
+		//fmt.Println(dataRawSter)
+		dataElem := ParseDataElem(dataRawSter)
+		if dataElem == nil {
+			continue
+		}
+
+		obj.Elems = append(obj.Elems, dataElem)
+		if dataElem.Name == "" {
+			continue
+		}
+		obj.Name2Elem[dataElem.Name] = dataElem
+		normName := getNormName(dataElem.Name)
+		if normName != "" {
+			obj.NormName2Elem[normName] = dataElem
+		}
+
+		if dataElem.JsonName != "" {
+			obj.JsonN2Elem[dataElem.JsonName] = dataElem
+			normJsonName := getNormName(dataElem.JsonName)
+			obj.NormJson2Elem[normJsonName] = dataElem
+		}
+	}
 
 	return obj, nil
 }
@@ -56,4 +85,11 @@ func strucName2CodeObjectName(s string) string {
 	}
 
 	return codeNameFirstAlphaCode
+}
+
+// 归一化的名字删除下划线，全部变成小写
+func getNormName(s string) string {
+	s = strings.ReplaceAll(s, "_", "")
+	s = strings.ToLower(s)
+	return s
 }
