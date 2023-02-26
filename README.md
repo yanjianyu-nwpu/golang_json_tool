@@ -35,3 +35,42 @@ Type TestModelB struct{
 
 # API
 GenCopyCode(srcStr string, dstStr string) 
+
+# 支持指针判断和赋值
+- 如果拷贝对象字段是指针，那么会先判断是否是nil，然后进行赋值
+- 如果需要强制转化，那会先生成一个临时对象
+
+用例
+```
+type TestA struct {
+    A *int64
+    B float32
+    C int64 
+    D *u 
+}
+
+type TestB struct {
+    A int 
+    B float64 
+    C *int 
+    D u 
+}
+```
+生成代码
+```
+func(testA *TestA, testB *TestB) { 
+     if TestA.A!= nil {
+        ATmp := int(*TestA.A)
+        TestB.A = ATmp
+    }
+
+    TestB.B = float64(TestA.B)
+    CTmp := int(TestA.C)
+    TestB.C = &CTmp
+
+    if TestA.D!= nil {
+        TestB.D = *TestA.D
+    }
+
+}
+```
