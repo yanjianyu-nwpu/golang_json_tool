@@ -13,7 +13,14 @@ func ParseDataElem(s string) *DataElem {
 	}
 
 	elem.Name = terms[0]
-	elem.TypeStr = terms[1]
+	rawTypeStr := terms[1]
+
+	if ptrTagReg.Match([]byte(rawTypeStr)) {
+		elem.IsPtrType = true
+		rawTypeStr = strings.ReplaceAll(rawTypeStr, "*", "")
+	}
+
+	elem.TypeStr = rawTypeStr
 
 	if len(terms) >= 3 {
 		elem.JsonName = parseJsonTag(terms[2])

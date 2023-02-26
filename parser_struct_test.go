@@ -1,10 +1,6 @@
 package golang_json_tool
 
 /*
-import (
-	"testing"
-)
-
 func TestParseStruct(t *testing.T) {
 	c := "type  TestA strcut"
 	line := GetStringSplitBySpace(c)
@@ -23,7 +19,7 @@ func TestParseStruct(t *testing.T) {
 
 
 func TestParseStruct(t *testing.T) {
-	testR := "type TestA struct {\nTable int64 `json:\"table,omitempty\"`\n B float32\n}"
+	testR := "type TestA struct {\nTable int64 `json:\"table,omitempty\"`\n B float32\n C *int64\n}"
 	tt, err := ParserStruct(testR)
 	t.Logf(fmt.Sprint(err))
 	t.Logf(tt.CodeObjectName)

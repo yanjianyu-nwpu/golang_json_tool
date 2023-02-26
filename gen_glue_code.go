@@ -25,6 +25,14 @@ const (
 	NotOKLineOnlyDst   = "// %s.%s = \n"
 
 	FuncLine = "func(%s *%s, %s *%s) { \n "
+
+	ptrJudeLineOne = "if %s.%s!= nil {\n" // 把ptr赋值给值
+	ptr2Value      = "%s.%s = *%s.%s\n"
+
+	value2Ptr = "%s.%s = &%s.%s\n"
+
+	tmpObj        = "%s := %s(%s.%s)\n"
+	tmpObjFromPtr = "%s := %s(*%s.%s)\n"
 )
 
 /*
@@ -161,14 +169,54 @@ func getOKCode(src, dst *Object, srcFiledName, dstFieldName string, needTypeOK b
 	srcFildType := src.Name2Elem[srcFiledName].TypeStr
 	dstFildType := dst.Name2Elem[dstFieldName].TypeStr
 
+	srcIsPtr := src.Name2Elem[srcFiledName].IsPtrType
+	dstIsPtr := dst.Name2Elem[dstFieldName].IsPtrType
 	//isOK := false
 	// type 完全一样
 	if srcFildType == dstFildType {
+		if srcIsPtr != dstIsPtr {
+			res := ""
+			if srcIsPtr {
+				res = fmt.Sprintf(ptrJudeLineOne, srcObjName, srcFiledName)
+
+				res += fmt.Sprintf(ptr2Value, dstObjName, dstFieldName, srcObjName, srcFiledName)
+				res += "}\n"
+			} else {
+				res = fmt.Sprintf(value2Ptr, dstObjName, dstFieldName, srcObjName, srcFiledName)
+			}
+			res += "\n"
+
+			return res
+		}
+
 		res := fmt.Sprintf(OKLine, dstObjName, dstFieldName, srcObjName, srcFiledName)
 		return res
 	}
 
 	if dataType[srcFildType] && dataType[dstFildType] {
+		if dstIsPtr || srcIsPtr {
+			res := ""
+			endJ := ""
+			if srcIsPtr {
+				endJ += "}\n"
+				res = fmt.Sprintf(ptrJudeLineOne, srcObjName, srcFiledName)
+
+				res += fmt.Sprintf(tmpObjFromPtr, srcFiledName+"Tmp", dstFildType, srcObjName, srcFiledName)
+			} else {
+				res += fmt.Sprintf("%s := %s(%s.%s)\n", srcFiledName+"Tmp", dstFildType, srcObjName, srcFiledName)
+			}
+
+			if dstIsPtr {
+				res += fmt.Sprintf("%s.%s = &%s\n", dstObjName, dstFieldName, srcFiledName+"Tmp")
+			} else {
+				res += fmt.Sprintf("%s.%s = %s\n", dstObjName, dstFieldName, srcFiledName+"Tmp")
+			}
+
+			res += endJ
+			res += "\n"
+			return res
+		}
+
 		res := fmt.Sprintf(OKLineWithTypeCase, dstObjName, dstFieldName, dstFildType, srcObjName, srcFiledName)
 		return res
 	}
