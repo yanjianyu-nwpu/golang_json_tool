@@ -12,6 +12,7 @@ var (
 	smallEnReg     *regexp.Regexp
 	uselessCodeReg *regexp.Regexp
 	jsonTagReg     *regexp.Regexp
+	ptrTagReg      *regexp.Regexp
 )
 
 func init() {
@@ -20,6 +21,7 @@ func init() {
 	bigEnReg = regexp.MustCompile(`[A-Z]+`)
 	smallEnReg = regexp.MustCompile(`[a-z]+`)
 	jsonTagReg = regexp.MustCompile(`json:".+?"`)
+	ptrTagReg = regexp.MustCompile(`^\*.*`)
 }
 
 // GetStringSplitBySpace split space string

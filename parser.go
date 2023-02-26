@@ -16,6 +16,7 @@ type DataElem struct {
 	TypeStr   string
 	JsonName  string
 	Omitempty bool
+	IsPtrType bool
 	Tags      map[string]string
 	RawString string
 	RawTerms  []string

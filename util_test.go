@@ -1,5 +1,7 @@
 package golang_json_tool
 
+import "testing"
+
 /*
 import "testing"
 
@@ -32,3 +34,18 @@ func TestJsonTagReg(t *testing.T) {
 	t.Log(string(r))
 }
 */
+
+func TestPtrReg(t *testing.T) {
+	h := "*int"
+	h0 := "int*64"
+
+	if !ptrTagReg.Match([]byte(h)) {
+		t.Errorf("wrong0")
+	}
+	if ptrTagReg.Match([]byte(h0)) {
+		t.Errorf("w1")
+	}
+
+	jj := ptrTagReg.ReplaceAll([]byte(h), []byte(""))
+	t.Logf(string(jj))
+}
